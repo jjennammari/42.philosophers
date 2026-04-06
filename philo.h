@@ -22,20 +22,36 @@
 
 typedef struct s_data
 {
-	
-} t_data;
+	long			start_time;
+	bool			end;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
+	pthread_mutex_t	*forks;
+	struct s_philo	*philos;
+
+}	t_data;
 
 typedef struct s_philo
 {
-	uint64_t	meal_count;
-	uint64_t	time_of_eat;
-} t_philo;
+	bool			full;
+	int				id;
+	long			meals_eaten;
+	long			time_of_eat;
+	pthread_t		thread_id;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
+	t_data			*data;
+}	t_philo;
 
 /* main.c */
 void	init_variables();
-void	print_error(char *str);
 
 /* philo_parse.c */
-int	parse_philo(char **av);
+int		parse_input(char **av, int ac);
+bool	ft_isdigit(char *str);
+size_t	ft_strlen(char *str);
+bool	ft_only_zero(char *str);
+bool	ft_confirm_bigger_maxint(char *str);
 
 #endif
