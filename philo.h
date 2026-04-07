@@ -24,6 +24,7 @@ typedef struct s_data
 {
 	long			start_time;
 	bool			end;
+	long			philo_amount;
 	long			time_to_die;
 	long			time_to_eat;
 	long			time_to_sleep;
@@ -46,13 +47,15 @@ typedef struct s_philo
 
 /* main.c */
 int		main(int ac, char **av);
-int		init_data(t_data *data, char **av, int ac);
 
-/* philo_parse.c */
+/* parse.c */
 int		parse_input(char **av, int ac);
 bool	ft_isdigit(char *str);
 size_t	ft_strlen(char *str);
 bool	ft_only_zero(char *str);
 bool	ft_confirm_bigger_maxint(char *str);
+
+/* init_variables.c */
+int		init_variables(t_data *data, char **av, int ac);
 
 #endif
