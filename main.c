@@ -23,7 +23,7 @@ int	main(int ac, char **av)
 		if (parse_input(av, ac))
 			return (printf("Error: use only digits in the input and\
 				values bigger than 0"), 1);
-		if (init_data(&data))
+		if (init_data(&data, av, ac))
 			return (clear_data(&data), 1);
 		start_simulation(&data);
 		clear_data(&data);
@@ -33,5 +33,5 @@ int	main(int ac, char **av)
 	return (0);
 }
 
-int	init_data(t_data **data, char **av, int ac)
+int	init_data(t_data *data, char **av, int ac)
 {}

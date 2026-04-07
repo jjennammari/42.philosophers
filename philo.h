@@ -45,7 +45,8 @@ typedef struct s_philo
 }	t_philo;
 
 /* main.c */
-void	init_variables();
+int		main(int ac, char **av);
+int		init_data(t_data *data, char **av, int ac);
 
 /* philo_parse.c */
 int		parse_input(char **av, int ac);
