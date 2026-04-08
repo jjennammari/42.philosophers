@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   run_simulation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jemustaj <jemustaj@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/05 18:49:41 by jemustaj          #+#    #+#             */
-/*   Updated: 2026/04/05 18:53:58 by jemustaj         ###   ########.fr       */
+/*   Created: 2026/04/07 20:08:55 by jemustaj          #+#    #+#             */
+/*   Updated: 2026/04/07 20:10:05 by jemustaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int ac, char **av)
+int	ft_start_simulation(t_data *data)
 {
-	t_data	data;
-
-	if (ac == 5  || ac == 6)
-	{
-		if (ft_parse_input(av, ac))
-			return (1);
-		if (ft_init_variables(&data, av, ac))
-			return (ft_clear_data(&data), 1);
-		ft_start_simulation(&data);
-		ft_clear_data(&data);
-	}
-	else
-		return (printf("Error: execute program with 5 or 6 arguments:\
-			philos, deth time, eating time, sleeping time, [max eat]"), 1);
+	data->start_time = ft_get_time(data);
 	return (0);
+}
+
+long	ft_get_time(t_data *data)
+{
+	struct timeval	current_time;
+
+	gettimeofday(&current_time, NULL);
+	return (time);
 }

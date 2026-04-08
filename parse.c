@@ -12,27 +12,24 @@
 
 #include "philo.h"
 
-int	parse_input(char **av, int ac)
+int	ft_parse_input(char **av, int ac)
 {
 	int	i;
 
 	i = 1;
 	while (i < ac)
 	{
-		if(ft_strlen(av[i]) > 10)
-			return (1);
-		else if (ft_isdigit(av[i]))
-			return (1);
-		else if (ft_only_zero(av[i]))
-			return (1);
-		else if (ft_strlen(av[i]) == 10 && ft_confirm_bigger_maxint(av[i]))
-			return (1);
+		if (ft_not_digit(av[i]))
+			return (printf("Error: use only digits in the input"), -1);
+		else if (ft_wrong_value(av[i]))
+			return (printf("Error: use only values bigger than 0 and\
+				smaller or equal to max int"), -1);
 		i++;
 	}
 	return (0);
 }
 
-bool	ft_isdigit(char *str)
+bool	ft_not_digit(char *str)
 {
 	int	i;
 
@@ -42,31 +39,30 @@ bool	ft_isdigit(char *str)
 		if (str[i] >= '0' && str[i] <= '9')
 			i++;
 		else
-			return (1);
+			return (-1);
 	}
 	return (0);
 }
 
-size_t	ft_strlen(char *str)
-{
-	size_t	i;
-
-	if (!str)
-		return (11);
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-bool	ft_only_zero(char *str)
+bool	ft_wrong_value(char *str)
 {
 	int	i;
+	int	start;
+	int	count;
 
 	i = 0;
 	while (str[i] && str[i] == '0')
 		i++;
 	if (str[i] == '\0')
+		return (1);
+	start = i;
+	count = 0;
+	while (str[i])
+	{
+		count++;
+		i++;
+	}
+	if (count > 10 || (count == 10 && ft_confirm_bigger_maxint(&str[start])))
 		return (1);
 	return (0);
 }
