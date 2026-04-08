@@ -12,6 +12,15 @@
 
 #include "philo.h"
 
+static void	ft_print(t_data *data)
+{
+	printf("philo_amount=%ld\n", data->philo_amount);
+	printf("time_to_die=%ld ms\n", data->time_to_die);
+	printf("time_to_eat=%ld ms\n", data->time_to_eat);
+	printf("time_to_sleep=%ld ms\n", data->time_to_sleep);
+	printf("max_meals=%ld\n", data->max_meals);
+}
+
 int	main(int ac, char **av)
 {
 	t_data	data;
@@ -22,6 +31,7 @@ int	main(int ac, char **av)
 			return (1);
 		if (ft_init_variables(&data, av, ac))
 			return (ft_clear_data(&data), 1);
+		ft_print(&data);
 		ft_start_simulation(&data);
 		ft_clear_data(&data);
 	}

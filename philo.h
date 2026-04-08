@@ -29,6 +29,7 @@ typedef struct s_philo
 	pthread_t		thread_id;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
+	struct s_data	*data;
 }	t_philo;
 
 typedef struct s_data
@@ -39,9 +40,11 @@ typedef struct s_data
 	long			time_to_eat;
 	long			time_to_sleep;
 	long			max_meals;
-	bool			end;
-	pthread_mutex_t	*forks;
+	bool			end_simulation;
 	t_philo			*philos;
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	end_mutex;
 
 }	t_data;
 
@@ -63,6 +66,16 @@ int		ft_philo_init(t_data *data);//TODO: change to void function?
 
 /* run_simulation.c */
 int		ft_start_simulation(t_data *data);
-long	ft_get_time(t_data *data);
+long	ft_get_time_ms();
+void	ft_sleep_ms(t_data *data, long time_ms);
+void	*ft_routine(void *arg);
+void	ft_take_forks(t_philo *philo);
+void	ft_put_forks_down(t_philo *philo);
+void	ft_print_simulation(t_data *data, int philo_id, char *message);//TODO: check if printf is too slow vs write
+
+/* end_program.c */
+void	ft_clear_data(t_data *data);
+bool	ft_has_ended(t_data *data);
+void	ft_set_end(t_data *data, bool value);
 
 #endif

@@ -25,9 +25,9 @@ int	ft_init_variables(t_data *data, char **av, int ac)
 void	ft_convert_av(t_data *data, char **av, int ac)
 {
 	data->philo_amount = ft_atol(av[1]);
-	data->time_to_die = ft_atol(av[2]) * 1000;
-	data->time_to_eat = ft_atol(av[3]) * 1000;
-	data->time_to_sleep = ft_atol(av[4]) * 1000;
+	data->time_to_die = ft_atol(av[2]);
+	data->time_to_eat = ft_atol(av[3]);
+	data->time_to_sleep = ft_atol(av[4]);
 	if (ac == 6 && av[5])
 		data->max_meals = ft_atol(av[5]);
 	else
@@ -56,7 +56,11 @@ int	ft_data_init(t_data *data)
 	long	i;
 
 	data->start_time = 0;
-	data->end = 0;
+	data->end_simulation = 0;
+	if (pthread_mutex_init(&data->print_mutex, NULL) != 0)
+		return (printf("Error: mutex init failed"), -1);
+	if (pthread_mutex_init(&data->end_mutex, NULL) != 0)
+		return (printf("Error: mutex init failed"), -1);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->philo_amount);
 	if (!data->forks)
 		return (printf("Error: malloc failed"), -1);
@@ -86,6 +90,7 @@ int	ft_philo_init(t_data *data)
 		data->philos[i].time_of_eat = 0;
 		data->philos[i].left_fork = &data->forks[i];
 		data->philos[i].right_fork = &data->forks[(i + 1) % data->philo_amount];
+		data->philos[i].data = data;
 		i++;
 	}
 	return (0);
