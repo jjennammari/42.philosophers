@@ -14,8 +14,16 @@
 
 void	ft_clear_data(t_data *data)
 {
+	int	i;
+
 	if (!data)
 		return ;
+	i = 0;
+	while (i < data->philo_amount)
+	{
+		pthread_mutex_destroy(&data->forks[i]);
+		i++;
+	}
 	if (data->forks)
 		free(data->forks);
 	if (data->philos)

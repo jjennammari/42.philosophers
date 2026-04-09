@@ -22,10 +22,9 @@
 
 typedef struct s_philo
 {
-	bool			full;
 	int				id;
 	long			meals_eaten;
-	long			time_of_eat;
+	long			last_meal_ms;
 	pthread_t		thread_id;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
@@ -43,6 +42,7 @@ typedef struct s_data
 	bool			end_simulation;
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	meal_mutex;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	end_mutex;
 
@@ -65,13 +65,21 @@ int		ft_data_init(t_data *data);
 int		ft_philo_init(t_data *data);//TODO: change to void function?
 
 /* run_simulation.c */
-int		ft_start_simulation(t_data *data);
+int		ft_run_simulation(t_data *data);
+void	ft_init_last_meals(t_data *data);
+int		ft_create_threads(t_data *data);
+void	ft_join_threads(t_data *data);
+void	ft_monitor(t_data *data);
 long	ft_get_time_ms();
 void	ft_sleep_ms(t_data *data, long time_ms);
 void	*ft_routine(void *arg);
+void	ft_one_philo(t_philo *philo);
 void	ft_take_forks(t_philo *philo);
 void	ft_put_forks_down(t_philo *philo);
 void	ft_print_simulation(t_data *data, int philo_id, char *message);//TODO: check if printf is too slow vs write
+int		ft_check_full(t_data *data);
+int		ft_check_death(t_data *data);
+int		ft_end_print_death(t_data *data, long i);
 
 /* end_program.c */
 void	ft_clear_data(t_data *data);

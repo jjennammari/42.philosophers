@@ -57,6 +57,8 @@ int	ft_data_init(t_data *data)
 
 	data->start_time = 0;
 	data->end_simulation = 0;
+	if (pthread_mutex_init(&data->meal_mutex, NULL) != 0)
+		return (printf("Error: mutex init failed"), -1);
 	if (pthread_mutex_init(&data->print_mutex, NULL) != 0)
 		return (printf("Error: mutex init failed"), -1);
 	if (pthread_mutex_init(&data->end_mutex, NULL) != 0)
@@ -84,10 +86,9 @@ int	ft_philo_init(t_data *data)
 	i = 0;
 	while (i < data->philo_amount)
 	{
-		data->philos[i].full = 0;
 		data->philos[i].id = i + 1;
 		data->philos[i].meals_eaten = 0;
-		data->philos[i].time_of_eat = 0;
+		data->philos[i].last_meal_ms = 0;
 		data->philos[i].left_fork = &data->forks[i];
 		data->philos[i].right_fork = &data->forks[(i + 1) % data->philo_amount];
 		data->philos[i].data = data;

@@ -32,7 +32,7 @@ int	main(int ac, char **av)
 		if (ft_init_variables(&data, av, ac))
 			return (ft_clear_data(&data), 1);
 		ft_print(&data);
-		ft_start_simulation(&data);
+		ft_run_simulation(&data);
 		ft_clear_data(&data);
 	}
 	else
