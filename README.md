@@ -16,6 +16,14 @@ make
 ./philo 4 300 250 200   // with no max meal nb defined
 ./philo 9 500 100 200 3 // with max meal nb defined
 ```
+* after you are done using the program, you can clean the .o files with
+```
+clean
+```
+* to delete the execution file, type
+```
+fclean
+```
 
 ## Resources
 
