@@ -26,12 +26,15 @@ To learn more about the project and tools to use to create it, I was using sever
     * [https://docs.oracle.com/cd/E19205-01/820-0619/geojs/index.html](https://docs.oracle.com/cd/E19205-01/820-0619/geojs/index.html)
     * [https://www.mathworks.com/products/polyspace/static-analysis-notes/what-data-races-how-avoid-during-software-development.html](https://www.mathworks.com/products/polyspace/static-analysis-notes/what-data-races-how-avoid-during-software-development.html)
     * [https://medium.com/@efebalikofc/understanding-data-races-in-programming-a-quick-overview-1058047c0c6f](https://medium.com/@efebalikofc/understanding-data-races-in-programming-a-quick-overview-1058047c0c6f)
-* Processes in C
+* Processes and fork in C
     * [https://www.geeksforgeeks.org/operating-systems/process-in-operating-system/](https://www.geeksforgeeks.org/operating-systems/process-in-operating-system/)
     * [https://www.geeksforgeeks.org/c/fork-system-call/](https://www.geeksforgeeks.org/c/fork-system-call/)
+    * [https://www.youtube.com/watch?v=cex9XrZCU14&list=PLfqABt5AS4FkW5mOn2Tn9ZZLLDwA3kZUY](https://www.youtube.com/watch?v=cex9XrZCU14&list=PLfqABt5AS4FkW5mOn2Tn9ZZLLDwA3kZUY)
 * Threads in Unix system with C
     * [https://www.youtube.com/watch?v=d9s_d28yJq0&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2](https://www.youtube.com/watch?v=d9s_d28yJq0&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2)
     * [https://medium.com/@jalal92/the-dining-philosophers-7157cc05315](https://medium.com/@jalal92/the-dining-philosophers-7157cc05315)
     * [https://medium.com/@jalal92/lets-discuss-threads-grab-a-coffee-ad4d4ebf7181](https://medium.com/@jalal92/lets-discuss-threads-grab-a-coffee-ad4d4ebf7181)
-* Teaching video series about processes and fork in C
-    * [https://www.youtube.com/watch?v=cex9XrZCU14&list=PLfqABt5AS4FkW5mOn2Tn9ZZLLDwA3kZUY](https://www.youtube.com/watch?v=cex9XrZCU14&list=PLfqABt5AS4FkW5mOn2Tn9ZZLLDwA3kZUY)
+* AI usage
+    * Resources sometimes. Especially when looking for very specific details that seems slow to find information from internet.
+    * Help to understand how different tools work together
+    * Advice when I have no idea what is going on
