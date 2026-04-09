@@ -47,6 +47,6 @@ To learn more about the project and tools to use to create it, I was using sever
     * [https://medium.com/@jalal92/the-dining-philosophers-7157cc05315](https://medium.com/@jalal92/the-dining-philosophers-7157cc05315)
     * [https://medium.com/@jalal92/lets-discuss-threads-grab-a-coffee-ad4d4ebf7181](https://medium.com/@jalal92/lets-discuss-threads-grab-a-coffee-ad4d4ebf7181)
 * AI usage
-    * Resources sometimes. Especially when looking for very specific details that seems slow to find information from internet.
+    * Resources. Especially when looking for very specific details that seems slow to find information from internet.
     * Help to understand how different tools work together
     * Advice when I have no idea what is going on
