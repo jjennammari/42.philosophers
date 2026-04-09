@@ -12,6 +12,11 @@
 
 #include "philo.h"
 
+int		ft_parse_input(char **av, int ac);
+bool	ft_not_digit(char *str);
+bool	ft_wrong_value(char *str);
+bool	ft_confirm_bigger_maxint(char *str);
+
 int	ft_parse_input(char **av, int ac)
 {
 	int	i;
@@ -70,7 +75,7 @@ bool	ft_wrong_value(char *str)
 bool	ft_confirm_bigger_maxint(char *str)
 {
 	const char	*max_int;
-	int		i;
+	int			i;
 
 	max_int = "2147483647";
 	i = 0;

@@ -11,14 +11,14 @@
 /* ************************************************************************** */
 
 #ifndef PHILO_H
-#define PHILO_H
+# define PHILO_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <pthread.h>
-#include <stdbool.h>
-#include <sys/time.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <pthread.h>
+# include <stdbool.h>
+# include <sys/time.h>
 
 typedef struct s_philo
 {
@@ -51,7 +51,7 @@ typedef struct s_data
 /* main.c */
 int		main(int ac, char **av);
 
-/* parse.c */
+/* parse_input.c */
 int		ft_parse_input(char **av, int ac);
 bool	ft_not_digit(char *str);
 bool	ft_wrong_value(char *str);
@@ -62,26 +62,30 @@ int		ft_init_variables(t_data *data, char **av, int ac);
 void	ft_convert_av(t_data *data, char **av, int ac);
 long	ft_atol(char *str);
 int		ft_data_init(t_data *data);
-int		ft_philo_init(t_data *data);//TODO: change to void function?
+void	ft_philo_init(t_data *data);
 
 /* run_simulation.c */
 int		ft_run_simulation(t_data *data);
 void	ft_init_last_meals(t_data *data);
 int		ft_create_threads(t_data *data);
 void	ft_join_threads(t_data *data);
-void	ft_monitor(t_data *data);
-long	ft_get_time_ms();
 void	ft_sleep_ms(t_data *data, long time_ms);
+
+/* routine_simulation.c */
 void	*ft_routine(void *arg);
 void	ft_one_philo(t_philo *philo);
 void	ft_take_forks(t_philo *philo);
 void	ft_put_forks_down(t_philo *philo);
-void	ft_print_simulation(t_data *data, int philo_id, char *message);//TODO: check if printf is too slow vs write
+void	ft_print_simulation(t_data *data, int philo_id, char *message);
+
+/* monitor_simulation.c */
+void	ft_monitor(t_data *data);
 int		ft_check_full(t_data *data);
 int		ft_check_death(t_data *data);
 int		ft_end_print_death(t_data *data, long i);
+long	ft_get_time_ms(void);
 
-/* end_program.c */
+/* end_simulation.c */
 void	ft_clear_data(t_data *data);
 bool	ft_has_ended(t_data *data);
 void	ft_set_end(t_data *data, bool value);

@@ -12,13 +12,18 @@
 
 #include "philo.h"
 
+int		ft_init_variables(t_data *data, char **av, int ac);
+void	ft_convert_av(t_data *data, char **av, int ac);
+long	ft_atol(char *str);
+int		ft_data_init(t_data *data);
+void	ft_philo_init(t_data *data);
+
 int	ft_init_variables(t_data *data, char **av, int ac)
 {
 	ft_convert_av(data, av, ac);
 	if (ft_data_init(data) != 0)
 		return (-1);
-	if (ft_philo_init(data) != 0)
-		return (-1);
+	ft_philo_init(data);
 	return (0);
 }
 
@@ -79,7 +84,7 @@ int	ft_data_init(t_data *data)
 	return (0);
 }
 
-int	ft_philo_init(t_data *data)
+void	ft_philo_init(t_data *data)
 {
 	long	i;
 
@@ -94,5 +99,4 @@ int	ft_philo_init(t_data *data)
 		data->philos[i].data = data;
 		i++;
 	}
-	return (0);
 }

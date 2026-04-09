@@ -12,6 +12,10 @@
 
 #include "philo.h"
 
+void	ft_clear_data(t_data *data);
+bool	ft_has_ended(t_data *data);
+void	ft_set_end(t_data *data, bool value);
+
 void	ft_clear_data(t_data *data)
 {
 	int	i;
@@ -19,19 +23,20 @@ void	ft_clear_data(t_data *data)
 	if (!data)
 		return ;
 	i = 0;
-	while (i < data->philo_amount)
+	while (data->forks && i < data->philo_amount)
 	{
 		pthread_mutex_destroy(&data->forks[i]);
 		i++;
 	}
+	pthread_mutex_destroy(&data->meal_mutex);
+	pthread_mutex_destroy(&data->print_mutex);
+	pthread_mutex_destroy(&data->end_mutex);
 	if (data->forks)
 		free(data->forks);
 	if (data->philos)
 		free (data->philos);
 	data->forks = NULL;
 	data->philos = NULL;
-	pthread_mutex_destroy(&data->print_mutex);
-	pthread_mutex_destroy(&data->end_mutex);
 }
 
 bool	ft_has_ended(t_data *data)
