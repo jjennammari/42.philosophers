@@ -4,7 +4,7 @@ _This project has been created as part of the 42 curriculum by jemustaj_
 
 ## Description
 
-Philosophers is a project with a goal to learn about concurrent programming with using threads in a safe way implementing with mutex locks.
+Philosophers is using a metaphor of dining philosophers that has tasks to eat, sleep and think. The goal goal is to learn about concurrent programming with using threads in a safe way implementing with mutex locks.
 
 ## Instructions
 
