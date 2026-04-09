@@ -1,6 +1,10 @@
 _This project has been created as part of the 42 curriculum by jemustaj_
 
+# Philosophers
+
 ## Description
+
+Philosophers is a project with a goal to learn about concurrent programming with using threads in a safe way implementing with mutex locks.
 
 ## Instructions
 
