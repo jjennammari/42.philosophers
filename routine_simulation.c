@@ -50,8 +50,9 @@ void	*ft_routine(void *arg)
 void	ft_one_philo(t_philo *philo)
 {
 	pthread_mutex_lock(philo->left_fork);
-	ft_print_simulation(philo->data, philo->id, "has taken left fork");
-	ft_sleep_ms(philo->data, philo->data->time_to_die);
+	ft_print_simulation(philo->data, philo->id, "has taken a fork");
+	while (!ft_has_ended(philo->data))
+		usleep(1000);
 	pthread_mutex_unlock(philo->left_fork);
 }
 
@@ -69,14 +70,14 @@ void	ft_take_forks(t_philo *philo)
 	}
 	pthread_mutex_lock(first);
 	if (first == philo->left_fork)
-		ft_print_simulation(philo->data, philo->id, "has taken left fork");
+		ft_print_simulation(philo->data, philo->id, "has taken a fork");
 	else
-		ft_print_simulation(philo->data, philo->id, "has taken right fork");
+		ft_print_simulation(philo->data, philo->id, "has taken a fork");
 	pthread_mutex_lock(second);
 	if (second == philo->left_fork)
-		ft_print_simulation(philo->data, philo->id, "has taken left fork");
+		ft_print_simulation(philo->data, philo->id, "has taken a fork");
 	else
-		ft_print_simulation(philo->data, philo->id, "has taken right fork");
+		ft_print_simulation(philo->data, philo->id, "has taken a fork");
 }
 
 void	ft_put_forks_down(t_philo *philo)
@@ -99,11 +100,13 @@ void	ft_print_simulation(t_data *data, int philo_id, char *message)
 {
 	long	timestamp;
 
-	pthread_mutex_lock(&data->print_mutex);
-	if (!ft_has_ended(data))
+	pthread_mutex_lock(&data->end_mutex);
+	if (!data->end_simulation)
 	{
+		pthread_mutex_lock(&data->print_mutex);
 		timestamp = ft_get_time_ms() - data->start_time;
 		printf("%ld %d %s\n", timestamp, philo_id, message);
+		pthread_mutex_unlock(&data->print_mutex);
 	}
-	pthread_mutex_unlock(&data->print_mutex);
+	pthread_mutex_unlock(&data->end_mutex);
 }

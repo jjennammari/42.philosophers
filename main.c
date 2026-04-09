@@ -16,13 +16,16 @@ int	main(int ac, char **av)
 {
 	t_data	data;
 
+	data.forks = NULL;
+	data.philos = NULL;
 	if (ac == 5 || ac == 6)
 	{
 		if (ft_parse_input(av, ac))
 			return (1);
 		if (ft_init_variables(&data, av, ac))
 			return (ft_clear_data(&data), 1);
-		ft_run_simulation(&data);
+		if (ft_run_simulation(&data))
+			return (ft_clear_data(&data), 1);
 		ft_clear_data(&data);
 	}
 	else

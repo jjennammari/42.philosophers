@@ -14,18 +14,25 @@
 
 int		ft_run_simulation(t_data *data);
 void	ft_init_last_meals(t_data *data);
-int		ft_create_threads(t_data *data);
-void	ft_join_threads(t_data *data);
+int		ft_create_threads(t_data *data, long *created);
+void	ft_join_threads(t_data *data, long created);
 void	ft_sleep_ms(t_data *data, long time_ms);
 
 int	ft_run_simulation(t_data *data)
 {
+	long	created;
+
 	data->start_time = ft_get_time_ms();
 	ft_init_last_meals(data);
-	if (ft_create_threads(data) != 0)
+	created = 0;
+	if (ft_create_threads(data, &created) != 0)
+	{
+		ft_set_end(data, true);
+		ft_join_threads(data, created);
 		return (printf("Error: thread creation failed"), -1);
+	}
 	ft_monitor(data);
-	ft_join_threads(data);
+	ft_join_threads(data, data->philo_amount);
 	return (0);
 }
 
@@ -41,7 +48,7 @@ void	ft_init_last_meals(t_data *data)
 	}
 }
 
-int	ft_create_threads(t_data *data)
+int	ft_create_threads(t_data *data, long *created)
 {
 	long	i;
 
@@ -52,16 +59,17 @@ int	ft_create_threads(t_data *data)
 				ft_routine, &data->philos[i]) != 0)
 			return (-1);
 		i++;
+		*created = i;
 	}
 	return (0);
 }
 
-void	ft_join_threads(t_data *data)
+void	ft_join_threads(t_data *data, long created)
 {
 	long	i;
 
 	i = 0;
-	while (i < data->philo_amount)
+	while (i < created)
 	{
 		pthread_join(data->philos[i].thread_id, NULL);
 		i++;

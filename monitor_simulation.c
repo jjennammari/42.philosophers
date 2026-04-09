@@ -80,19 +80,19 @@ int	ft_check_death(t_data *data)
 int	ft_end_print_death(t_data *data, long i)
 {
 	long	now;
-	int		ended;
 
 	pthread_mutex_lock(&data->end_mutex);
-	ended = data->end_simulation;
-	if (!ended)
-		data->end_simulation = 1;
-	pthread_mutex_unlock(&data->end_mutex);
-	if (ended)
+	if (data->end_simulation)
+	{
+		pthread_mutex_unlock(&data->end_mutex);
 		return (1);
-	now = ft_get_time_ms();
+	}
+	data->end_simulation = 1;
 	pthread_mutex_lock(&data->print_mutex);
+	now = ft_get_time_ms();
 	printf("%ld %d died\n", now - data->start_time, data->philos[i].id);
 	pthread_mutex_unlock(&data->print_mutex);
+	pthread_mutex_unlock(&data->end_mutex);
 	return (1);
 }
 

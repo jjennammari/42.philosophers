@@ -67,8 +67,8 @@ void	ft_philo_init(t_data *data);
 /* run_simulation.c */
 int		ft_run_simulation(t_data *data);
 void	ft_init_last_meals(t_data *data);
-int		ft_create_threads(t_data *data);
-void	ft_join_threads(t_data *data);
+int		ft_create_threads(t_data *data, long *created);
+void	ft_join_threads(t_data *data, long created);
 void	ft_sleep_ms(t_data *data, long time_ms);
 
 /* routine_simulation.c */
