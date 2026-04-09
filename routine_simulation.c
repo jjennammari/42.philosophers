@@ -58,42 +58,28 @@ void	ft_one_philo(t_philo *philo)
 
 void	ft_take_forks(t_philo *philo)
 {
-	pthread_mutex_t	*first;
-	pthread_mutex_t	*second;
-
-	first = philo->left_fork;
-	second = philo->right_fork;
-	if (first > second)
+	pthread_mutex_lock(&philo->data->order_mutex);
+	if (philo->id % 2 == 0)
 	{
-		first = philo->right_fork;
-		second = philo->left_fork;
+	pthread_mutex_lock(philo->right_fork);
+	ft_print_simulation(philo->data, philo->id, "has taken a fork");
+	pthread_mutex_lock(philo->left_fork);
+	ft_print_simulation(philo->data, philo->id, "has taken a fork");
 	}
-	pthread_mutex_lock(first);
-	if (first == philo->left_fork)
-		ft_print_simulation(philo->data, philo->id, "has taken a fork");
 	else
+	{
+		pthread_mutex_lock(philo->left_fork);
 		ft_print_simulation(philo->data, philo->id, "has taken a fork");
-	pthread_mutex_lock(second);
-	if (second == philo->left_fork)
+		pthread_mutex_lock(philo->right_fork);
 		ft_print_simulation(philo->data, philo->id, "has taken a fork");
-	else
-		ft_print_simulation(philo->data, philo->id, "has taken a fork");
+	}
+	pthread_mutex_unlock(&philo->data->order_mutex);
 }
 
 void	ft_put_forks_down(t_philo *philo)
 {
-	pthread_mutex_t	*first;
-	pthread_mutex_t	*second;
-
-	first = philo->left_fork;
-	second = philo->right_fork;
-	if (first > second)
-	{
-		first = philo->right_fork;
-		second = philo->left_fork;
-	}
-	pthread_mutex_unlock(second);
-	pthread_mutex_unlock(first);
+	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(philo->right_fork);
 }
 
 void	ft_print_simulation(t_data *data, int philo_id, char *message)

@@ -42,6 +42,7 @@ typedef struct s_data
 	bool			end_simulation;
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	order_mutex;
 	pthread_mutex_t	meal_mutex;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	end_mutex;
