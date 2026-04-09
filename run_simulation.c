@@ -131,20 +131,26 @@ void	ft_one_philo(t_philo *philo)
 
 void	ft_take_forks(t_philo *philo)
 {
-	if (philo->id % 2 == 0)
+	pthread_mutex_t	*first;
+	pthread_mutex_t	*second;
+
+	first = philo->left_fork;
+	second = philo->right_fork;
+	if (first > second)
 	{
-		pthread_mutex_lock(philo->right_fork);
-		ft_print_simulation(philo->data, philo->id, "has taken right fork");
-		pthread_mutex_lock(philo->left_fork);
-		ft_print_simulation(philo->data, philo->id, "has taken left fork");
+		first = philo->right_fork;
+		second = philo->left_fork;
 	}
+	pthread_mutex_lock(first);
+	if (first == philo->left_fork)
+		ft_print_simulation(philo->data, philo->id, "has taken left fork");
 	else
-	{
-		pthread_mutex_lock(philo->left_fork);
-		ft_print_simulation(philo->data, philo->id, "has taken left fork");
-		pthread_mutex_lock(philo->right_fork);
 		ft_print_simulation(philo->data, philo->id, "has taken right fork");
-	}
+	pthread_mutex_lock(second);
+	if (second == philo->left_fork)
+		ft_print_simulation(philo->data, philo->id, "has taken left fork");
+	else
+		ft_print_simulation(philo->data, philo->id, "has taken right fork");
 }
 
 void	ft_put_forks_down(t_philo *philo)
