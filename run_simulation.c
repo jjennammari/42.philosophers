@@ -59,8 +59,8 @@ int	ft_create_threads(t_data *data, long *created)
 				ft_routine, &data->philos[i]) != 0)
 			return (-1);
 		i++;
-		*created = i;
 	}
+	*created = i;
 	return (0);
 }
 

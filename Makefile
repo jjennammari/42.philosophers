@@ -12,7 +12,7 @@
 
 NAME = philo
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -pthread -g
+CFLAGS = -Wall -Wextra -Werror -pthread -g -fsanitize=address
 
 SRC = main.c \
 	  parse_input.c \
