@@ -14,8 +14,8 @@
 
 int		ft_init_variables(t_data *data, char **av, int ac);
 void	ft_convert_av(t_data *data, char **av, int ac);
-long	ft_atol(char *str);
 int		ft_data_init(t_data *data);
+int		ft_init_mutex_pointers(t_data *data);
 void	ft_philo_init(t_data *data);
 
 int	ft_init_variables(t_data *data, char **av, int ac)
@@ -39,36 +39,28 @@ void	ft_convert_av(t_data *data, char **av, int ac)
 		data->max_meals = -1;
 }
 
-long	ft_atol(char *str)
-{
-	long	nb;
-	int		i;
-
-	i = 0;
-	while (str[i] && str[i] == '0')
-		i++;
-	nb = 0;
-	while (str[i])
-	{
-		nb = nb * 10 + (str[i] - '0');
-		i++;
-	}
-	return (nb);
-}
-
 int	ft_data_init(t_data *data)
 {
-	long	i;
-
 	data->start_time = 0;
 	data->end_simulation = 0;
-	if (pthread_mutex_init(&data->meal_mutex, NULL) != 0 ||
-			pthread_mutex_init(&data->order_mutex, NULL) != 0)
+	if (pthread_mutex_init(&data->print_mutex, NULL) != 0
+		|| pthread_mutex_init(&data->order_mutex, NULL) != 0)
 		return (printf("Error: mutex init failed"), -1);
-	if (pthread_mutex_init(&data->print_mutex, NULL) != 0)
+	if (pthread_mutex_init(&data->end_mutex, NULL) != 0
+		|| pthread_mutex_init(&data->start_mutex, NULL) != 0)
 		return (printf("Error: mutex init failed"), -1);
-	if (pthread_mutex_init(&data->end_mutex, NULL) != 0)
-		return (printf("Error: mutex init failed"), -1);
+	if (ft_init_mutex_pointers(data))
+		return (-1);
+	return (0);
+}
+
+int	ft_init_mutex_pointers(t_data *data)
+{
+	int	i;
+
+	data->meal_mutex = malloc(sizeof(pthread_mutex_t) * data->philo_amount);
+	if (!data->meal_mutex)
+		return (printf("Error: malloc failed"), -1);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->philo_amount);
 	if (!data->forks)
 		return (printf("Error: malloc failed"), -1);
@@ -78,6 +70,8 @@ int	ft_data_init(t_data *data)
 	i = 0;
 	while (i < data->philo_amount)
 	{
+		if (pthread_mutex_init(&data->meal_mutex[i], NULL) != 0)
+			return (printf("Error: mutex init failed"), -1);
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
 			return (printf("Error: mutex init failed"), -1);
 		i++;

@@ -42,12 +42,13 @@ int	ft_check_full(t_data *data)
 	i = 0;
 	while (i < data->philo_amount)
 	{
-		pthread_mutex_lock(&data->meal_mutex);
+		pthread_mutex_lock(&data->meal_mutex[i]);
 		meals = data->philos[i].meals_eaten;
-		pthread_mutex_unlock(&data->meal_mutex);
+		pthread_mutex_unlock(&data->meal_mutex[i]);
 		if (meals >= data->max_meals)
 			full_count++;
 		i++;
+		usleep(50);
 	}
 	if (full_count == data->philo_amount)
 	{
@@ -67,12 +68,13 @@ int	ft_check_death(t_data *data)
 	i = 0;
 	while (i < data->philo_amount)
 	{
-		pthread_mutex_lock(&data->meal_mutex);
+		pthread_mutex_lock(&data->meal_mutex[i]);
 		last = data->philos[i].last_meal_ms;
-		pthread_mutex_unlock(&data->meal_mutex);
+		pthread_mutex_unlock(&data->meal_mutex[i]);
 		if (now - last >= data->time_to_die)
 			return (ft_end_print_death(data, i));
 		i++;
+		usleep(50);
 	}
 	return (0);
 }

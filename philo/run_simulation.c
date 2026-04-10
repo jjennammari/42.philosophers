@@ -24,6 +24,7 @@ int	ft_run_simulation(t_data *data)
 
 	data->start_time = ft_get_time_ms();
 	ft_init_last_meals(data);
+	pthread_mutex_lock(&data->start_mutex);
 	created = 0;
 	if (ft_create_threads(data, &created) != 0)
 	{
@@ -31,6 +32,8 @@ int	ft_run_simulation(t_data *data)
 		ft_join_threads(data, created);
 		return (printf("Error: thread creation failed"), -1);
 	}
+	data->start_time = ft_get_time_ms();
+	pthread_mutex_unlock(&data->start_mutex);
 	ft_monitor(data);
 	ft_join_threads(data, data->philo_amount);
 	return (0);
@@ -85,6 +88,6 @@ void	ft_sleep_ms(t_data *data, long time_ms)
 	{
 		if (ft_get_time_ms() - start >= time_ms)
 			break ;
-		usleep(200);
+		usleep(500);
 	}
 }

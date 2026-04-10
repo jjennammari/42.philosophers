@@ -16,6 +16,7 @@ int		ft_parse_input(char **av, int ac);
 bool	ft_not_digit(char *str);
 bool	ft_wrong_value(char *str);
 bool	ft_confirm_bigger_maxint(char *str);
+long	ft_atol(char *str);
 
 int	ft_parse_input(char **av, int ac)
 {
@@ -86,4 +87,21 @@ bool	ft_confirm_bigger_maxint(char *str)
 		i++;
 	}
 	return (0);
+}
+
+long	ft_atol(char *str)
+{
+	long	nb;
+	int		i;
+
+	i = 0;
+	while (str[i] && str[i] == '0')
+		i++;
+	nb = 0;
+	while (str[i])
+	{
+		nb = nb * 10 + (str[i] - '0');
+		i++;
+	}
+	return (nb);
 }

@@ -41,9 +41,10 @@ typedef struct s_data
 	long			max_meals;
 	bool			end_simulation;
 	t_philo			*philos;
+	pthread_mutex_t	start_mutex;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	order_mutex;
-	pthread_mutex_t	meal_mutex;
+	pthread_mutex_t	*meal_mutex;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	end_mutex;
 
@@ -57,12 +58,14 @@ int		ft_parse_input(char **av, int ac);
 bool	ft_not_digit(char *str);
 bool	ft_wrong_value(char *str);
 bool	ft_confirm_bigger_maxint(char *str);
+long	ft_atol(char *str);
 
 /* init_variables.c */
 int		ft_init_variables(t_data *data, char **av, int ac);
 void	ft_convert_av(t_data *data, char **av, int ac);
 long	ft_atol(char *str);
 int		ft_data_init(t_data *data);
+int		ft_init_mutex_pointers(t_data *data);
 void	ft_philo_init(t_data *data);
 
 /* run_simulation.c */
@@ -74,6 +77,7 @@ void	ft_sleep_ms(t_data *data, long time_ms);
 
 /* routine_simulation.c */
 void	*ft_routine(void *arg);
+void	ft_routine_loop(t_philo *philo);
 void	ft_one_philo(t_philo *philo);
 void	ft_take_forks(t_philo *philo);
 void	ft_put_forks_down(t_philo *philo);
@@ -86,9 +90,10 @@ int		ft_check_death(t_data *data);
 int		ft_end_print_death(t_data *data, long i);
 long	ft_get_time_ms(void);
 
-/* end_simulation.c */
+/* utils_simulation.c */
 void	ft_clear_data(t_data *data);
 bool	ft_has_ended(t_data *data);
 void	ft_set_end(t_data *data, bool value);
+void	ft_print_simulation(t_data *data, int philo_id, char *message);
 
 #endif
